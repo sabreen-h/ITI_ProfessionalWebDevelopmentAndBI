@@ -1,1 +1,56 @@
+//  C Program to Find the Roots of a Quadratic Equation
 
+
+
+
+#include<stdio.h>
+#include<conio.h>
+#include<math.h>
+
+int main (){
+
+int a , b , c,x ,s1 , s2 ;
+
+clrscr ();
+
+printf("enter the coffecient a, b , c ");
+
+scanf("%d", &a);
+scanf("%d" , &b);
+scanf("%d" , &c);
+
+x = (pow(b,2)-4*a*c);
+
+if(x>0){
+
+printf("you have 2 solutions");
+
+s1=(-b+(sqrt(x))/(2*a));
+
+s2=(-b-(sqrt(x))/(2*a));
+
+printf("%d%d" , s1 , s2 );
+
+}
+
+else
+
+if (x==0){
+
+printf("you have 1 solution");
+
+s1=(-b/(2*a));
+printf("%d" , s1);
+}
+
+else if(x<0) {
+
+printf("you have an imaginary solution ");
+
+}
+
+getch();
+
+return 0 ;
+
+}
