@@ -1,6 +1,8 @@
 //linked list implementation 
 //example of menu with( add , inseret , search by id or name , delete, print all , delete all ) students
-```
+
+
+```c
 
 #include<stdio.h>
 #include<conio.h>
