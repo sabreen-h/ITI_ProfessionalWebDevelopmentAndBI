@@ -1,3 +1,6 @@
+```markdown
+
+```sql
 
 select Dnum , Dname , SSN , Fname +' '+Lname
 from Departments , Employee
