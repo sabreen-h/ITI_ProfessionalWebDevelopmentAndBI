@@ -1,337 +1,505 @@
 //linked list implementation 
-//example of add students menu
+//example of menu with( add , inseret , search by id or name , delete, print all , delete all ) students
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include<stdio.h>
+#include<conio.h>
+#include<stdlib.h>
+#include<string.h>
 
 struct student {
-    int id;
-    char name[20];
-};
+int id;
+char name[20];
 
-struct node {
-    struct student stu;
-    struct node *pPrev;
-    struct node *pNext;
-};
+} ; //struct student
+
+
+struct node{
+
+struct student stu ;
+struct node *pPrev;
+struct node *pNext;
+};   // struct node
 
 struct node *pHead;
 struct node *pTail;
 
-// Function prototypes
+// global variabels
+
+// functions prototype
+
+
 void print_student(struct student s);
 struct student fill_student(void);
+
+
+// functions prototype for linked list
+
 struct node *createNode(struct student s);
-int addNode(void);
-int insertNode(int location);
-struct student searchByIdNode(int id);
-struct student searchByNameNode(char name[]);
+
+int addNode(void  );
+
+int insertNode( int location);
+
+struct student  searchByIdNode(int id );
+struct student  searchByNameNode(char name[] );
+
 int deleteNode(int loc);
 int deleteNodeById(int id);
+
 void printList(void);
+
 void freeList(void);
 
 // end of prototype
 
-int main() {
-    int input_val, loc, input_id, flag = 1, retval;
-    char input_name[20];
 
-    printf("1-Add\n2-Insert\n3-Search by ID\n4-Search by name\n5-Delete student\n6-Delete list\n7-Print students\n8-Exit\n");
 
-    while (flag) {
-        scanf("%d", &input_val);
-        switch (input_val) {
-            case 1:
-                retval = addNode();
-                if (retval) {
-                    printf("Student added successfully.\n");
-                } else {
-                    printf("Cannot add student.\n");
-                }
-                break;
+int main(){
 
-            case 2:
-                printf("Please enter location:\n");
-                scanf("%d", &loc);
-                retval = insertNode(loc);
-                if (retval) {
-                    printf("Student added successfully.\n");
-                } else {
-                    printf("Cannot add student.\n");
-                }
-                break;
+int input_val , loc , input_id , flag=1 , retval;
 
-            case 3:
-                printf("Please enter ID:\n");
-                scanf("%d", &input_id);
-                struct student s = searchByIdNode(input_id);
-                if (s.id == -1) {
-                    printf("Student not found.\n");
-                } else {
-                    printf("Student found.\n");
-                    print_student(s);
-                }
-                break;
+char input_name[20];
+struct student s ;
+clrscr();
 
-            case 4:
-                printf("Please enter name:\n");
-                scanf("%s", input_name);
-                s = searchByNameNode(input_name);
-                if (strcmp(s.name, "") == 0) {
-                    printf("Student not found.\n");
-                } else {
-                    printf("Student found.\n");
-                    print_student(s);
-                }
-                break;
+printf(" 1-Add\n 2-Insert\n 3-Search by ID \n 4-Search by name\n 5-Delete student \n 6-delete list \n 7-print students \n 8-Exit\n");
 
-            case 5:
-                printf("Please enter location:\n");
-                scanf("%d", &loc);
-                retval = deleteNode(loc);
-                if (retval) {
-                    printf("Student deleted successfully.\n");
-                } else {
-                    printf("Cannot delete student.\n");
-                }
-                break;
+while(flag){
+     scanf("%d" , &input_val);
+     switch(input_val){
+	   case 1:
+		retval=addNode();
+		if(retval){
+		   printf("student Added successfully.\n");
+		}
+		else {
+		   printf("can not add student\n");
 
-            case 6:
-                freeList();
-                printf("List deleted.\n");
-                break;
+		}
 
-            case 7:
-                printList();
-                break;
+		break;
 
-            case 8:
-                flag = 0;
-                break;
-        }
-    }
 
-    return 0;
+	   case 2:
+		printf("please enter location\n");
+		scanf("%d" , &loc);
+		retval=insertNode(loc);
+
+		if(retval){
+		   printf("student insrted successfully....\n");
+		}
+		else {
+		   printf("can not insert student\n");
+
+		}
+
+		break;
+
+	   case 3:
+		printf("please enter ID \n");
+		scanf("%d" , &input_id);
+		s=  searchByIdNode(input_id);
+
+		if(s.id==-1){
+		  printf("student not found\n");
+		}
+		else{
+		   printf("student found\n");
+		   print_student(s);
+		}
+		break ;
+
+	   case 4:
+	       printf("please enter name");
+	       scanf("%s" , input_name);
+	       s = searchByNameNode (input_name);
+
+	       if(strcmp(s.name,"")==0){
+		   printf("student not found\n");
+		}
+		else{
+		   printf("student found\n");
+		   print_student(s);
+		}
+		break ;
+
+
+	  case 5:
+	       printf("please enter location\n");
+	       scanf("%d" , &loc);
+	       retval=  deleteNode(loc);
+
+
+	       if(retval){
+		   printf("student deleted successfully....\n");
+	       }
+	       else {
+		   printf("can not delete student\n");
+
+	       }
+
+		break;
+
+
+	 case 6:
+
+	      freeList();
+	      break;
+
+	 case 7:
+
+	      printList();
+	      break;
+
+	 case 8:
+
+	     flag=0;
+	     break;
+
+     }
 }
 
-void print_student(struct student s) {
-    printf("Student ID: %d\n", s.id);
-    printf("Student name: %s\n", s.name);
+
+
+
+
+
+
+return 0;
+
+
 }
 
-struct student fill_student(void) {
-    struct student s;
-    printf("Enter student ID: ");
-    scanf("%d", &(s.id));
-    printf("Enter student name: ");
-    scanf("%s", s.name);
-    return s;
+struct student fill_student(void){
+int i;
+struct student s;
+printf("enter student ID\n");
+scanf("%d" , &(s.id));
+printf("enter student name: \n");
+scanf("%s", s.name);
+
+
+return s;
+
+
 }
 
-struct node *createNode(struct student s) {
-    struct node *ptr = (struct node *)malloc(sizeof(struct node));
-    if (ptr) {
-        ptr->stu = s;
-        ptr->pNext = NULL;
-        ptr->pPrev = NULL;
-    }
-    return ptr;
+void print_student(struct student s){
+int i;
+printf("the id of student: %d\n" , s.id );
+printf("the name of student %s\n", s.name);
+
 }
 
-int addNode(void) {
-    struct student s = fill_student();
-    struct node *ptr = createNode(s);
 
-    int return_val = 0;
 
-    if (ptr) {
-        return_val = 1;
-        if (pHead == NULL) {
-            pHead = ptr;
-            pTail = ptr;
-        } else {
-            pTail->pNext = ptr;
-            ptr->pPrev = pTail;
-            pTail = ptr;
-        }
-    }
+// create node implementation
 
-    return return_val;
+struct node *createNode(struct student s){
+
+struct node *ptr;
+ptr=(struct node*)malloc(sizeof(struct node));
+
+if(ptr)
+{
+  ptr ->stu=s;
+  ptr->pNext=NULL;
+  ptr->pPrev=NULL;
 }
 
-int insertNode(int location) {
-    struct student s = fill_student();
-    struct node *ptr = createNode(s);
-    int return_val = 0, i;
-    struct node *temp;
+return ptr ;
 
-    if (ptr) {
-        return_val = 1;
-        if (pHead == NULL) {
-            pHead = pTail = ptr;
-        } else {
-            if (location == 0) {
-                ptr->pNext = pHead;
-                pHead->pPrev = ptr;
-                pHead = ptr;
-            } else {
-                temp = pHead;
 
-                for (i = 0; i < location - 1 && (temp->pNext); i++) {
-                    temp = temp->pNext;
-                }
-
-                if (temp == NULL || temp == pTail) {
-                    pTail->pNext = ptr;
-                    ptr->pPrev = pTail;
-                    pTail = ptr;
-                } else {
-                    (temp->pNext)->pPrev = ptr;
-                    ptr->pNext = temp->pNext;
-                    ptr->pPrev = temp;
-                    temp->pNext = ptr;
-                }
-            }
-        }
-    }
-
-    return return_val;
 }
 
-struct student searchByIdNode(int id) {
-    struct node *pTemp = pHead;
-    struct student s;
-    s.id = -1;
+// add node implementation
 
-    while (pTemp && pTemp->stu.id != id) {
-        pTemp = pTemp->pNext;
-    }
+int addNode( ){
 
-    if (pTemp) {
-        s = pTemp->stu;
-    }
+struct student s=fill_student();
 
-    return s;
+struct node *ptr =  createNode(s);
+
+int return_val=0;
+
+
+
+if(ptr)
+{
+   return_val=1;
+   if(pHead==NULL) //no list
+   {
+      pHead=ptr;
+   }
+   else // there is a list
+   {
+     pTail -> pNext = ptr;
+     ptr ->pPrev = pTail;
+     pTail=ptr;
+
+   }
 }
 
-struct student searchByNameNode(char name[]) {
-    struct node *temp = pHead;
-    struct student s;
-    strcpy(s.name, "");
 
-    while (temp && (strcmp(temp->stu.name, name) != 0)) {
-        temp = temp->pNext;
-    }
-
-    if (temp) {
-        s = temp->stu;
-    }
-
-    return s;
+     return return_val ;
 }
 
-int deleteNode(int loc) {
-    int return_val = 0, i;
-    struct node *temp;
 
-    if (loc == 0) {
-        return_val = 1;
-        if (pHead == NULL) {
-            return 0; // List is empty
-        }
 
-        temp = pHead;
 
-        if (pHead->pNext == NULL) {
-            // Only one node in the list
-            free(pHead);
-            pHead = pTail = NULL;
-        } else {
-            pHead = pHead->pNext;
-            pHead->pPrev = NULL;
-            free(temp);
-        }
-    } else {
-        temp = pHead;
 
-        for (i = 0; (i < loc) && temp; i++) {
-            temp = temp->pNext;
-        }
 
-        if (temp) {
-            return_val = 1;
-            if (temp == pTail) {
-                pTail = pTail->pPrev;
-                if (pTail) {
-                    pTail->pNext = NULL;
-                }
-            } else if (temp == pHead) {
-                pHead = pHead->pNext;
-                pHead->pPrev = NULL;
-            } else {
-                (temp->pPrev)->pNext = temp->pNext;
-                (temp->pNext)->pPrev = temp->pPrev;
-            }
+// insert node implementation
 
-           
 
- free(temp);
-        }
+int insertNode( int location){
+
+ struct student s=fill_student();
+
+ struct node *ptr =  createNode(s);
+
+ int return_val=0 , i;
+ struct node *temp;
+
+
+ if(ptr)
+
+ {
+   return_val=1;
+   if(pHead==NULL)  //no list
+   {
+    pHead=pTail=ptr;
+
     }
 
-    return return_val;
+
+
+
+    else
+    {
+      if(location==0) // insert node in first
+      {
+
+	  ptr->pNext=pHead; // first step
+	  pHead->pPrev=ptr; // second step
+	  pHead= ptr; //third step
+      }
+
+      else // insert in midle or last
+      {
+	temp=pHead;
+
+	for(i=0 ; i<location-1 && (temp->pNext) ; i++)
+	{
+	   temp=temp-> pNext;
+
+	}
+
+	if(temp==NULL || temp==pTail)  // last node
+	{
+	   pTail -> pNext=ptr;
+	   ptr -> pPrev=pTail;
+	   pTail=ptr;
+
+	}
+
+	else // middle
+	{
+
+	 (temp ->pNext ) ->pPrev= ptr;
+	 ptr ->pNext=temp ->pNext;
+	 ptr->pPrev=temp;
+	 temp -> pNext=ptr;
+	 } // end of else 1
+
+
+      } //end of else 2
+
+    } //end of else 3
+
+  } // end of if ptr
+
+ return return_val;
+
+
 }
 
-void freeList(void) {
-    struct node *temp;
-    while (pHead) {
-        temp = pHead;
-        pHead = pHead->pNext;
-        free(temp);
-    }
-    pTail = NULL;
+// search by ID function impelenentation
+
+
+struct student  searchByIdNode(int id ){
+
+struct node *pTemp;
+struct student s;
+pTemp=pHead;
+s.id=-1;
+
+while(pTemp && pTemp ->stu.id!=id)
+{
+  pTemp=pTemp -> pNext;
 }
 
-void printList(void) {
-    struct node *temp = pHead;
-    while (temp) {
-        print_student(temp->stu);
-        temp = temp->pNext;
-    }
+if(pTemp){
+  s=pTemp->stu;
 }
 
-int deleteNodeById(int id) {
-    int return_val = 0;
-    struct node *temp = pHead;
 
-    // Find the node with the given ID
-    while (temp && temp->stu.id != id) {
-        temp = temp->pNext;
-    }
-
-    // If the node is found, delete it
-    if (temp) {
-        return_val = 1;
-        if (temp == pHead) {
-            pHead = pHead->pNext;
-            if (pHead) {
-                pHead->pPrev = NULL;
-            }
-        } else if (temp == pTail) {
-            pTail = pTail->pPrev;
-            if (pTail) {
-                pTail->pNext = NULL;
-            }
-        } else {
-            (temp->pPrev)->pNext = temp->pNext;
-            (temp->pNext)->pPrev = temp->pPrev;
-        }
-
-        free(temp);
-    }
-
-    return return_val;
+return s;
 }
+
+// search by name function impelentation
+
+struct student  searchByNameNode(char name[] ){
+
+struct node *temp;
+struct student s;
+temp = pHead;
+
+
+while((temp) &&(strcmp(temp->stu.name , name)!=0)){
+     temp=temp-> pNext;
+}
+if(temp){
+  s=temp->stu;
+}
+else{
+   strcpy(s.name, "");
+}
+return s;
+
+}
+
+
+
+
+
+// implementation of delete node by location
+
+int deleteNode(int loc){
+
+
+int return_val=0 , i;
+
+struct node  *pCur;
+
+if(pHead){   // check if there is a list
+  if(loc==0){  // first node
+     pCur=pHead;
+     pHead=pHead->pNext;
+
+     if(pHead){ // list has more than 1
+
+       pHead->pPrev=NULL;
+     }
+     else{  // only one node
+
+	pTail=NULL;
+     }
+
+     free(pCur);
+     return_val=1;
+
+  } // end of if  loc==0
+
+  else{ // middle or last
+
+     pCur=pHead;
+     for(i=0; i<loc && (pCur); i++){
+
+	 pCur=pCur->pNext;
+     }
+
+     if(pCur){ // loc is right
+
+       if(pCur==pTail){ // last node
+	  pTail=pTail->pPrev;
+	  pTail->pNext=NULL;
+       }
+       else{  // middle
+	  pCur->pPrev->pNext=pCur->pNext;
+	  pCur->pNext->pPrev=pCur->pPrev;
+       }
+       free(pCur);
+       return_val=1;
+
+
+     } // end of if pCur
+  } // end of first else
+} // end of if phead
+
+
+return return_val;
+
+}
+
+// delete node by id
+
+int deleteNodeById(int id){
+
+int return_val=0;
+struct node *temp=pHead;
+
+while(temp && temp ->stu.id!=id){
+     temp=temp -> pNext;
+}
+
+if(temp){
+  return_val=1;
+  if(temp==pHead){
+    pHead=pHead->pNext;
+
+    if(pHead){
+      pHead ->pPrev=NULL;
+    }
+
+    else if(temp==pTail){
+	pTail=pTail->pPrev;
+	if(pTail){
+	   pTail->pNext=NULL;
+	}
+    }
+    else {
+
+	 (temp->pPrev)->pNext=temp->pNext;
+	  (temp->pNext)->pPrev=temp->pPrev;
+      }
+      free(temp);
+    }
+}
+return return_val;
+
+}
+
+
+//free list implementation
+void freeList(void){
+struct node *temp ;
+
+while(pHead){
+     temp=pHead;
+     pHead=pHead->pNext;
+     free(temp);
+}
+pTail=NULL;
+}
+
+//print list implementation
+
+void printList(){
+struct node * temp;
+temp=pHead;
+while(temp){
+    print_student (temp->stu);
+    temp=temp->pNext;
+}
+
+
+}
+
+
+
+
+
+
+
 
