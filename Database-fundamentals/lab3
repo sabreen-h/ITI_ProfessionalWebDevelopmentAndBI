@@ -1,1 +1,76 @@
 
+select Dnum , Dname , SSN , Fname +' '+Lname
+from Departments , Employee
+where Departments.MGRSSN= Employee.SSN ;
+
+select Dname , Pname 
+from Departments ,Project 
+where Departments.Dnum =Project.Dnum ;
+
+select ESSN , Dependent_name , Dependent.Bdate , Dependent .Sex , Fname+' '+Lname as Name
+from Dependent , Employee
+where Dependent.ESSN = Employee.SSN ;
+
+
+select e.Fname , Pname
+from Employee e , Works_for w , Project p
+where w.ESSN = e.SSN 
+AND Pnumber=Pno
+AND Dno =10
+AND w.Hours >=10
+And Pname='Al Rabwah';
+
+select e.Fname
+from Employee e
+where e.Superssn = (select SSN from Employee where Fname = 'Kamel' AND Lname = 'Mohamed');
+
+
+-- 6.	List the last name of all managers who have no dependents.--
+
+select e.lname 
+from Employee e , Departments d
+where e.SSN = d.MGRSSN 
+AND e.SSN NOT IN (select Essn from Dependent) ;
+
+-- 7.	Display the department name which has the smallest employee ID over all employees' ID.--
+select d.Dname
+from Departments d ,  Employee e
+where d.Dnum = e.Dno
+AND e.SSN = (select MIN(SSN) from Employee);
+
+-- 8-	For each department, retrieve the department name and the maximum, minimum and average salary of its employees.
+select d.Dname , max(e.salary) as Max_salary , min(e.salary) as Min_salary , avg(e.salary) as Avg_salary
+from Employee e , Departments d 
+where e.Dno =d.Dnum
+group by d.Dname ;
+-- 9.	For each department >>> display department number, department name and number of its employees 
+-- if its average salary is less than 1200 
+select d.Dnum , d.Dname , COUNT(e.ssn) as Employees_num
+from Departments d , Employee e
+where  e.Dno = d.Dnum 
+group by d.Dnum , d.Dname 
+having AVG (e.salary) < 1200 ;
+
+--10.	Retrieve a list of employees (fname) and the projects (project name) they are working on ordered by department no, last name, first name.
+select e.Fname as EMP_name , p.Pname as PRO_name 
+from Employee e , Works_for w , Project p
+where e.SSN = w.ESSn
+and w.Pno = p.Pnumber
+ORDER BY e.Dno, e.Lname, e.Fname;
+
+--11.	Find the project number, the controlling department name, the department manager last name, address and birthdate. For each project located in ‘Cairo’ City
+select p.Pnumber as Project_Number,  d.Dnum as Controlling_Department_Name,  e.Lname as Department_Manager_Last_Name, 
+e.Address as Department_Manager_Address, e.BDATE as Department_Manager_Birthdate
+from Project p , Employee e , Works_for w , Departments d 
+where p.Pnumber =w.Pno 
+and w.ESSn = e.SSN 
+and e.Dno=d.Dnum 
+and p.City='Cairo' ;
+
+
+
+
+
+ 
+
+
