@@ -1,0 +1,213 @@
+#include<iostream.h>
+#include<conio.h>
+#include<string.h>
+
+class Person
+{
+  protected:
+   int id;
+   char name[10];
+
+  public:
+     Person(){
+	id=0;
+	strcpy(name, "");
+     }
+
+     Person(int m , char  n[10]) {
+	   id=m;
+	   strcpy(name , n);
+     }
+     void SetId(int m){
+	id=m ;
+     }
+     void  SetName(char n[10]){
+	  strcpy(name , n);
+     }
+     int GetId(){
+	return id;
+     }
+     char *  GetName(){
+       return name;
+     }
+     virtual  void print(){
+
+       //cout<< "Person ID: "<< id <<endl;
+       //cout<< "Person Name: "<<name<<endl;
+     }
+};
+
+
+class Employee:public Person
+{
+
+
+  float salary;
+
+  public:
+     Employee(){
+
+	salary=1000;
+     }
+
+     Employee(int m , char  n[10], float s):Person (m,n) {
+
+	   salary= s;
+     }
+
+     void  SetSalary(float s){
+	 salary=s;
+     }
+
+
+
+     float  GetSalary( ){
+	return salary;
+     }
+
+     void print(){
+
+       cout<< "Employee ID: "<< id <<endl;
+       cout<< "Employee Name: "<<name<<endl;
+       cout <<"Employee Salary: "<<salary<<endl;
+     }
+  };
+
+
+class Customer:public Person
+{
+
+
+  float account_number;
+
+  public:
+     Customer(){
+
+	account_number=123.56;
+     }
+
+     Customer(int m , char  n[10], float c):Person (m,n) {
+
+		account_number= c;
+     }
+
+     void  SetAccount(float c){
+	   account_number= c;
+     }
+
+
+
+     float  GetAccount( ){
+	return account_number;
+     }
+
+     void print(){
+
+       cout<< "Customer ID: "<< id <<endl;
+       cout<< "Customer Name: "<<name<<endl;
+       cout <<"Customer Account: "<<account_number<<endl;
+     }
+  };
+
+
+class Base {
+   protected :
+     int z;
+     public :
+       Base ()
+       {z=1;}
+       Base (int m){
+	 z=m;
+       }
+       void SetZ(int m)
+       {  z=m;}
+
+       int GetZ()
+       { return z ;}
+
+};
+
+class Base1 : virtual public Base
+{
+  protected :
+       int x;
+  public:
+      Base1()
+      { x=0; }
+
+      Base1(int m) : Base(m)
+      {
+	x=m;
+      }
+
+      void SetX(int m){
+	  x=m;
+      }
+
+      int GetX(){
+	 return x;
+      }
+
+};
+
+class Base2 : virtual public Base
+{
+  protected :
+       int y;
+  public:
+      Base2()
+      { y=0; }
+
+      Base2(int m) : Base(m)
+      {
+	y=m;
+      }
+
+      void SetY(int m){
+	  y=m;
+      }
+
+      int GetY(){
+	 return y;
+      }
+
+};
+
+class Derived :public Base1 ,public Base2
+{
+   public:
+	Derived(){  }
+	Derived(int m , int n):Base2(m),Base1(n)
+	{ }
+	int product(){
+	    return x*y*Base1::z;
+	}
+};
+
+
+
+main (){
+clrscr();
+
+/*Employee  e(7, "sabreen" , 2000);
+Customer c(4,"Sabreen",1000);
+e.print();
+
+c.print(); */
+
+Derived drv(3,4);
+cout << drv.product();
+
+
+
+getch();
+
+
+
+return 0;
+
+}
+
+
+
+
