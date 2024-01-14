@@ -1,0 +1,76 @@
+#include<iostream.h>
+#include<conio.h>
+#include<string.h>
+#include<math.h>
+
+class Point{
+  int x,y;
+  public:
+     Point(){
+	 x=y=0;
+     }
+     Point(int m , int n){
+	x=m ;
+	y=n;
+
+     }
+     void SetX(int m){
+       x=m;
+     }
+     void SetY(int n){
+       y=n;
+     }
+     int GetX(){
+       return x;
+     }
+     int GetY(){
+       return y;
+     }
+
+
+};
+
+class Rectangle{
+   Point pt1 , pt2;
+   int lenght, width;
+
+   public:
+    Rectangle (int x1,int y1, int x2 , int y2):pt1(x1,y1),pt2(x2,y2){
+	 lenght=abs(x2-x1);
+	 width=abs(y2-y1);
+    }
+
+    void Setpt1(int x , int y){
+      pt1.SetX(x);
+      pt1.SetY(y);
+      lenght=abs(pt2.GetX()-x);
+      width =abs(pt2.GetY()-y);
+    }
+
+    void Setpt2(int x , int y){
+      pt2.SetX(x);
+      pt2.SetY(y);
+      lenght=abs(x-pt1.GetX());
+      width=abs(y-pt1.GetY());
+    }
+
+    Point Getpt1(){return pt1;}
+    Point Getpt2(){return pt2;}
+    int Area(){ return lenght*width;}
+
+
+};
+
+int main(){
+clrscr();
+
+Rectangle c(0,0,4,4);
+cout <<c.Area();
+
+getch();
+
+
+
+}
+
+
