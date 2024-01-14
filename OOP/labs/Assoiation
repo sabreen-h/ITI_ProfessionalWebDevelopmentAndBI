@@ -1,0 +1,112 @@
+#include<iostream.h>
+#include<conio.h>
+#include<string.h>
+#include<math.h>
+
+
+
+class Point{
+  int x,y;
+  public:
+     Point(){
+	 x=y=0;
+     }
+     Point(int s){
+	 x=y=s;
+     }
+     Point(int m , int n){
+	x=m ;
+	y=n;
+
+     }
+     void SetX(int m){
+       x=m;
+     }
+     void SetY(int n){
+       y=n;
+     }
+     int GetX(){
+       return x;
+     }
+     int GetY(){
+       return y;
+     }
+
+
+};
+
+
+class Rectangle {
+ Point *pt1 , *pt2;
+ int lenght, width;
+
+ public:
+
+   Rectangle(){
+      pt1=pt2=NULL;
+      lenght=width=0;
+   }
+
+   Rectangle(Point *p1, Point *p2){
+      pt1=p1;
+      pt2=p2;
+      if(pt1!=NULL && pt2!=NULL){
+	lenght=abs(pt2->GetX()-pt1->GetX());
+	width=abs(pt2->GetY()-pt1->GetY());
+      }
+      else{
+	lenght=width=0;
+      }
+    }
+
+    void setpt1(Point *p){
+      pt1=p;
+      if(pt1!=NULL && pt2!=NULL){
+	lenght=abs(pt2->GetX()-pt1->GetX());
+	width=abs(pt2->GetY()-pt1->GetY());
+      }
+      else{
+	lenght=width=0;
+      }
+
+    }
+
+    void setpt2(Point *p){
+      pt2=p;
+      if(pt1!=NULL && pt2!=NULL){
+	lenght=abs(pt2->GetX()-pt1->GetX());
+	width=abs(pt2->GetY()-pt1->GetY());
+      }
+      else{
+	lenght=width=0;
+      }
+
+    }
+
+    Point getpt1(){ return *pt1;}
+    Point getpt2(){ return *pt2;}
+    int Area(){
+      return lenght*width;
+    }
+
+ };
+
+ int main(){
+   clrscr();
+
+   Rectangle r;
+   Point p1(4,0);
+   Point p2(0,4);
+   Point p3(8);
+   r.setpt1(&p1);
+   r.setpt2(&p2);
+   cout<<"Area(Association)=" <<r.Area();
+
+   getch();
+   return 0  ;
+ }
+
+
+
+
+
